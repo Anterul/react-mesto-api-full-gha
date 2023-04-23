@@ -1,0 +1,9 @@
+.popup__title_type_sign-up {
+  max-width: 358px;
+  margin: 32px auto 0;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  text-align: center;
+  color: #000;
+}

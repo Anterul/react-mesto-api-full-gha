@@ -1,0 +1,15 @@
+.popup_name_sign-up {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.popup_name_sign-up::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: .9;
+}

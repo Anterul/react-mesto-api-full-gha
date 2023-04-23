@@ -1,0 +1,9 @@
+.popup__container_type_sign-up {
+  position: relative;
+  width: 430px;
+  height: 330px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+}
