@@ -9,6 +9,15 @@ const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 routes.use(requestLogger);
 
+routes.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://fmesto.nomoredomains.monster, localhost:3000');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  );
+  next();
+});
+
 routes.post('/signin', validateLogin, login);
 routes.post('/signup', validateRegister, createUser);
 
