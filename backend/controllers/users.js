@@ -50,7 +50,7 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => {
       const userObject = user.toObject();
       delete userObject.password;
-      res.status(CREATED).send({ data: { _id: userObject._id, email: userObject.email } });
+      res.status(CREATED).send({ user: userObject });
     })
     .catch((err) => {
       if (err.code === 11000) {
