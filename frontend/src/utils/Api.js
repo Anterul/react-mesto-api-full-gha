@@ -123,7 +123,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: `http://localhost:3000`,
+  baseUrl: `https://api.bmesto.nomoredomains.monster`,
 });
 
 export default api;
