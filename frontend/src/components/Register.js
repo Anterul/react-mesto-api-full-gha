@@ -46,7 +46,7 @@ function Register(props) {
           Зарегистрироваться
         </button>
       </form>
-      <NavLink className="auth__link" to="/sign-in">
+      <NavLink className="auth__link" to="/signin">
         Уже зарегистрированы? Войти
       </NavLink>
     </div>

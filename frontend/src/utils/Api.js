@@ -1,7 +1,6 @@
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._headers = headers;
   }
 
   _getResponseData(res) {
@@ -16,23 +15,35 @@ class Api {
   }
 
   getUserInfo() {
+    const token = localStorage.getItem("jwt");
     return this._request("/users/me", {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 
   getInitialCards() {
+    const token = localStorage.getItem("jwt");
     return this._request("/cards", {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 
   submitProfileData(name, about) {
+    const token = localStorage.getItem("jwt");
     return this._request("/users/me", {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: name,
         about: about,
@@ -41,16 +52,24 @@ class Api {
   }
 
   deleteCard(id) {
+    const token = localStorage.getItem("jwt");
     return this._request(`/cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 
   addNewCard(name, link) {
+    const token = localStorage.getItem("jwt");
     return this._request("/cards", {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: name,
         link: link,
@@ -59,23 +78,35 @@ class Api {
   }
 
   likeCard(id) {
+    const token = localStorage.getItem("jwt");
     return this._request(`/cards/${id}/likes`, {
       method: "PUT",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 
   dislikeCard(id) {
+    const token = localStorage.getItem("jwt");
     return this._request(`/cards/${id}/likes`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 
   updateAvatar(avatarUrl) {
+    const token = localStorage.getItem("jwt");
     return this._request("/users/me/avatar", {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         avatar: avatarUrl,
       }),
@@ -92,10 +123,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.bmesto.nomoredomains.monster",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseUrl: `http://localhost:3000`,
 });
 
 export default api;

@@ -6,6 +6,8 @@ const BadRequest = require('../utils/errors/BadRequest'); // 400
 const NotFound = require('../utils/errors/NotFound'); // 404
 const Conflict = require('../utils/errors/Conflict'); // 409
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.status(OK).send(users))
@@ -48,7 +50,7 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => {
       const userObject = user.toObject();
       delete userObject.password;
-      res.status(CREATED).send({ user: userObject });
+      res.status(CREATED).send({ data: { _id: userObject._id, email: userObject.email } });
     })
     .catch((err) => {
       if (err.code === 11000) {
@@ -75,7 +77,7 @@ module.exports.updateProfile = (req, res, next) => {
       if (user === null) {
         throw new NotFound('Пользователь с указанным _id не найден.');
       }
-      return res.status(OK).send({ name: user.name, about: user.about });
+      return res.status(OK).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -97,7 +99,7 @@ module.exports.updateAvatar = (req, res, next) => {
       if (user === null) {
         throw new NotFound('Пользователь с указанным _id не найден.');
       }
-      return res.status(OK).send({ avatar: user.avatar });
+      return res.status(OK).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -112,8 +114,12 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
-      res.send({ _id: token });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        { expiresIn: '7d' },
+      );
+      res.send({ token, email: user.email });
     })
     .catch((err) => next(err));
 };

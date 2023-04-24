@@ -1,5 +1,6 @@
 const { errors } = require('celebrate');
 const routes = require('express').Router();
+const cors = require('cors');
 const auth = require('../middlewares/auth');
 const { login, createUser } = require('../controllers/users');
 const { validateRegister, validateLogin } = require('../utils/validators');
@@ -9,13 +10,12 @@ const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 routes.use(requestLogger);
 
-routes.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://fmesto.nomoredomains.monster, localhost:3000');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept',
-  );
-  next();
+routes.use('*', cors());
+
+routes.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
 });
 
 routes.post('/signin', validateLogin, login);

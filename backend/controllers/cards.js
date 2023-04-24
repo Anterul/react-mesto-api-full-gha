@@ -5,7 +5,7 @@ const Forbidden = require('../utils/errors/Forbidden'); // 403
 const NotFound = require('../utils/errors/NotFound'); // 404
 
 module.exports.getCards = (req, res, next) => {
-  Card.find({})
+  Card.find({}).sort({ _id: -1 }).limit(100)
     .populate(['owner', 'likes'])
     .then((cards) => res.status(OK).send(cards))
     .catch((err) => next(err));

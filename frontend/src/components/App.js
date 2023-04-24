@@ -52,10 +52,6 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
-  function handleDeleteButtonClick() {
-    setIsDeleteCardPopupOpen(true);
-  }
-
   function handleLogin() {
     setIsLogedIn(true);
   }
@@ -118,7 +114,7 @@ function App() {
       .catch((error) => {
         console.log(`Ошибка: ${error}`);
       });
-  }, []);
+  }, [isLoggedIn]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -212,7 +208,7 @@ function App() {
       Auth.checkToken(jwt)
         .then((res) => {
           if (res) {
-            setEmail(res.data.email);
+            setEmail(res.email);
             setIsLogedIn(true);
             navigate("/", { replace: true });
           }
@@ -226,8 +222,8 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    if (!isLoggedIn && location.pathname !== "/sign-up") {
-      navigate("/sign-in", { replace: true });
+    if (!isLoggedIn && location.pathname !== "/signup") {
+      navigate("/signin", { replace: true });
     }
   }, [location.pathname]);
 
@@ -237,7 +233,7 @@ function App() {
 
   function signOut() {
     localStorage.removeItem("jwt");
-    navigate("/sign-in", { replace: true });
+    navigate("/signin", { replace: true });
     setIsLogedIn(false);
   }
 
@@ -245,7 +241,7 @@ function App() {
     Auth.register(password, email)
       .then((res) => {
         handleSignUpStatus();
-        navigate("/sign-in", { replace: true });
+        navigate("/signin", { replace: true });
       })
       .catch((error) => {
         console.log(`Ошибка: ${error}`);
@@ -298,11 +294,11 @@ function App() {
                 }
               />
               <Route
-                path="/sign-up"
+                path="/signup"
                 element={<Register onSignUp={handleRegister} />}
               />
               <Route
-                path="/sign-in"
+                path="/signin"
                 element={<Login onSignIn={handleSignIn} />}
               />
             </Routes>
