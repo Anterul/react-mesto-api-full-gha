@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IPv4: 51.250.65.121
+IP 51.250.65.121
 
 Frontend https://fmesto.nomoredomains.monster
 
