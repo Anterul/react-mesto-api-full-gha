@@ -7,10 +7,10 @@
   **Mesto Express** - это серверная часть социальной сети Mesto, написанная на Node.js и Express.
 
 ## Ссылки на проект:  
-&nbsp; &nbsp; Адрес репозитория: https://github.com/Anterul/react-mesto-api-full-gha  
-&nbsp; &nbsp; IP 51.250.65.121  
-&nbsp; &nbsp; Frontend https://fmesto.nomoredomains.monster  
-&nbsp; &nbsp; Backend https://api.bmesto.nomoredomains.monster  
+Адрес репозитория: https://github.com/Anterul/react-mesto-api-full-gha  
+IP 51.250.65.121  
+Frontend https://fmesto.nomoredomains.monster  
+Backend https://api.bmesto.nomoredomains.monster  
 
 ## Макеты в <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/figma/figma-original.svg" alt="Figma" width="15px"/> Figma:
 - [Макет 1](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
