@@ -246,6 +246,7 @@ function App() {
 
   function signOut() {
     localStorage.removeItem("jwt");
+    setEmail('');
     navigate("/signin", { replace: true });
     setIsLogedIn(false);
   }
@@ -268,11 +269,11 @@ function App() {
   function handleSignIn(password, email) {
     Auth.authorize(password, email)
       .then((data) => {
+        console.log(data.email)
         if (data.token) {
           handleSignInStatus();
           handleLogin();
           localStorage.setItem("jwt", data.token);
-          setEmail(data.email);
           navigate("/", { replace: true });
         }
       })
