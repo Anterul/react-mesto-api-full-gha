@@ -2,7 +2,7 @@
 
 ## Учебная проектная работа 15 от [Яндекс.Практикум](https://practicum.yandex.ru/)
 
-![mobile resolution](https://i.imgur.com/sWbXuq6.png)![desktop resolution](https://i.imgur.com/XEY4XCL.png)
+![desktop resolution](https://i.imgur.com/XEY4XCL.png)
 
 ## Описание проекта:
   **Mesto React** - это социальная сеть, где пользователь может зарегистрироваться/войти в свою учётную запись, добавлять/лайкать/удалять карточки с изображением и подписью, изменять информацию о себе в личном профиле.  
