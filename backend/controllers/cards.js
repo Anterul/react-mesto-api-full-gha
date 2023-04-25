@@ -1,5 +1,4 @@
 const Card = require('../models/card');
-const { OK, CREATED } = require('../utils/http2Constants');
 const BadRequest = require('../utils/errors/BadRequest'); // 400
 const Forbidden = require('../utils/errors/Forbidden'); // 403
 const NotFound = require('../utils/errors/NotFound'); // 404
@@ -7,14 +6,26 @@ const NotFound = require('../utils/errors/NotFound'); // 404
 module.exports.getCards = (req, res, next) => {
   Card.find({}).sort({ _id: -1 }).limit(100)
     .populate(['owner', 'likes'])
-    .then((cards) => res.status(OK).send(cards))
+    .then((cards) => res.send(cards))
     .catch((err) => next(err));
 };
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user })
-    .then((card) => res.status(CREATED).send(card))
+    .then((card) => res.send({
+      likes: card.likes,
+      _id: card._id,
+      name: card.name,
+      link: card.link,
+      owner: {
+        name: card.owner.name,
+        about: card.owner.about,
+        avatar: card.owner.avatar,
+        _id: card.owner._id,
+      },
+      createdAt: card.createdAt,
+    }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequest('Переданы некорректные данные при создании карточки.'));
@@ -34,7 +45,7 @@ module.exports.deleteCard = (req, res, next) => {
       if (card.owner.toString() !== req.user._id) {
         throw new Forbidden('Вы не можете удалить карточку друго пользователя');
       }
-      return card.deleteOne().then(() => res.status(OK).send(card));
+      return card.deleteOne().then(() => res.send({ message: 'Пост удалён' }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -56,7 +67,7 @@ module.exports.likeCard = (req, res, next) => {
       if (card === null) {
         throw new NotFound('Передан несуществующий _id карточки.');
       }
-      return res.status(OK).send(card);
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -78,7 +89,7 @@ module.exports.dislikeCard = (req, res, next) => {
       if (card === null) {
         throw new NotFound('Передан несуществующий _id карточки.');
       }
-      return res.status(OK).send(card);
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {

@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { OK, CREATED } = require('../utils/http2Constants');
 const BadRequest = require('../utils/errors/BadRequest'); // 400
 const NotFound = require('../utils/errors/NotFound'); // 404
 const Conflict = require('../utils/errors/Conflict'); // 409
@@ -10,7 +9,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(OK).send(users))
+    .then((users) => res.send(users))
     .catch((err) => next(err));
 };
 
@@ -20,7 +19,7 @@ module.exports.getUserId = (req, res, next) => {
       if (user === null) {
         throw new NotFound('Пользователь по указанному _id не найден.');
       }
-      return res.status(OK).send(user);
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -50,7 +49,7 @@ module.exports.createUser = (req, res, next) => {
     .then((user) => {
       const userObject = user.toObject();
       delete userObject.password;
-      res.status(CREATED).send({ user: userObject });
+      res.send({ data: { _id: userObject._id, email: userObject.email } });
     })
     .catch((err) => {
       if (err.code === 11000) {
@@ -77,7 +76,12 @@ module.exports.updateProfile = (req, res, next) => {
       if (user === null) {
         throw new NotFound('Пользователь с указанным _id не найден.');
       }
-      return res.status(OK).send(user);
+      return res.send({
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+        _id: user._id,
+      });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -99,7 +103,12 @@ module.exports.updateAvatar = (req, res, next) => {
       if (user === null) {
         throw new NotFound('Пользователь с указанным _id не найден.');
       }
-      return res.status(OK).send(user);
+      return res.send({
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+        _id: user._id,
+      });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -119,7 +128,7 @@ module.exports.login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
-      res.send({ token, email: user.email });
+      res.send({ token });
     })
     .catch((err) => next(err));
 };
@@ -130,7 +139,12 @@ module.exports.getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new NotFound('пользователь не найден');
       }
-      return res.status(OK).send(user);
+      return res.send({
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+        _id: user._id,
+      });
     })
     .catch((err) => next(err));
 };

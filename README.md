@@ -71,6 +71,7 @@ Backend https://api.bmesto.nomoredomains.monster
 ---
 
 ## Установка:
+Необходимые приложения: &nbsp; <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/git/git-original.svg" alt="Git" width="10px"/> [Git](https://git-scm.com/download/win) &nbsp; <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/nodejs/nodejs-original.svg" alt="Node.js" width="10px"/> [Node.js](https://nodejs.org/ru/) &nbsp; <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/mongodb/mongodb-original.svg" alt="MongoDB" width="10px"/> [MongoDB](https://mongodb.prakticum-team.ru/try/download/community)
 
 Клонируйте репозиторий <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/bash/bash-original.svg" alt="Bash" width="10px"/> :
 
@@ -115,7 +116,5 @@ Backend https://api.bmesto.nomoredomains.monster
 `/routes` — папка с файлами роутера  
 `/controllers` — папка с файлами контроллеров пользователя и карточки  
 `/models` — папка с файлами описания схем пользователя и карточки  
-
-Необходимые приложения для ввода команд и тестирования функциональности: &nbsp; <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/git/git-original.svg" alt="Git" width="10px"/> [Git](https://git-scm.com/download/win) &nbsp; <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/nodejs/nodejs-original.svg" alt="Node.js" width="10px"/> [Node.js](https://nodejs.org/ru/) &nbsp; <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/mongodb/mongodb-original.svg" alt="MongoDB" width="10px"/> [MongoDB](https://mongodb.prakticum-team.ru/try/download/community)
 
 ---

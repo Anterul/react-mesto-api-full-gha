@@ -16,6 +16,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { AppContext } from "../contexts/AppContext";
 import * as Auth from "../utils/Auth";
 import InfoTooltip from "./InfoTooltip";
+import InfoTooltipSignIn from "./InfoTooltipSignIn";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -36,6 +37,8 @@ function App() {
   const [email, setEmail] = useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isInfoTooltipSignInOpen, setIsInfoTooltipSignInOpen] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -63,14 +66,23 @@ function App() {
     setIsImagePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
     setIsInfoTooltipOpen(false);
+    setIsInfoTooltipSignInOpen(false);
   }
 
   function handleInfoTooltip() {
     setIsInfoTooltipOpen(true);
   }
+  
+  function handleInfoTooltipSignIn() {
+    setIsInfoTooltipSignInOpen(true);
+  }
 
   function handleSignUpStatus() {
     setIsSignUp(true);
+  }
+
+  function handleSignInStatus() {
+    setIsSignIn(true);
   }
 
   const isOpen =
@@ -78,7 +90,8 @@ function App() {
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
     isImagePopupOpen ||
-    isInfoTooltipOpen;
+    isInfoTooltipOpen ||
+    isInfoTooltipSignInOpen;
 
   useEffect(() => {
     function closeByEscape(evt) {
@@ -256,6 +269,7 @@ function App() {
     Auth.authorize(password, email)
       .then((data) => {
         if (data.token) {
+          handleSignInStatus();
           handleLogin();
           localStorage.setItem("jwt", data.token);
           setEmail(data.email);
@@ -264,6 +278,10 @@ function App() {
       })
       .catch((error) => {
         console.log(`Ошибка: ${error}`);
+        setIsSignIn(false);
+      })
+      .finally(() => {
+        handleInfoTooltipSignIn();
       });
   }
 
@@ -339,6 +357,12 @@ function App() {
             <InfoTooltip
               isOpen={isInfoTooltipOpen}
               isSignUp={isSignUp}
+              onClose={closeAllPopups}
+              onClick={handleOverlay}
+            />
+            <InfoTooltipSignIn
+              isOpen={isInfoTooltipSignInOpen}
+              isSignIn={isSignIn}
               onClose={closeAllPopups}
               onClick={handleOverlay}
             />
