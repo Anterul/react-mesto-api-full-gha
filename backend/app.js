@@ -2,7 +2,7 @@ const { errors } = require('celebrate');
 const express = require('express');
 const mongoose = require('mongoose');
 const { routes } = require('./routes/index');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+// const { requestLogger, errorLogger } = require('./middlewares/logger'); // логгер для разработки
 const { errorHandler } = require('./middlewares/errorHandler');
 const NotFound = require('./utils/errors/NotFound');
 
@@ -14,13 +14,13 @@ app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
-app.use(requestLogger);
+// app.use(requestLogger); // логгер для разработки
 
 app.use(routes);
 
 app.use('*', (req, res, next) => { next(new NotFound('Несуществующий маршрут.')); });
 
-app.use(errorLogger);
+// app.use(errorLogger); // логгер для разработки
 
 app.use(errors());
 

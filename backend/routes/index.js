@@ -6,12 +6,6 @@ const { validateRegister, validateLogin } = require('../utils/validators');
 
 routes.use('*', cors());
 
-routes.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
 routes.post('/signin', validateLogin, login);
 routes.post('/signup', validateRegister, createUser);
 
